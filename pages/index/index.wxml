@@ -1,0 +1,118 @@
+<view class="container">
+  <!-- 顶部账本切换 -->
+  <view class="book-selector" bindtap="showBookDrawer">
+    <view class="book-selector-content">
+      <text>{{currentBook.name || '默认账本'}}</text>
+      <icon type="arrow-down" size="12" color="#333"/>
+    </view>
+  </view>
+
+  <!-- 账单列表 -->
+  <view class="bill-list">
+    <view class="loading-container" wx:if="{{isLoading}}">
+      <view class="loading-spinner"></view>
+      <text class="loading-text">加载中...</text>
+    </view>
+    <block wx:elif="{{bills.length > 0}}">
+      <view class="bill-item-wrapper" 
+            wx:for="{{bills}}" 
+            wx:key="_id">
+        <view class="bill-item {{item.showActions ? 'move-left' : ''}}"
+              bindtouchstart="touchStart"
+              bindtouchmove="touchMove"
+              bindtouchend="touchEnd"
+              data-index="{{index}}">
+          <view class="bill-left">
+            <view class="category-icon">
+              <image src="/images/categories/{{item.category}}.png" mode="aspectFit"/>
+            </view>
+            <view class="bill-info">
+              <text class="category">{{item.category}}</text>
+              <text class="description">{{item.description || '无备注'}}</text>
+            </view>
+          </view>
+          <view class="bill-right">
+            <text class="amount">¥{{item.amount}}</text>
+            <text class="date">{{item.date}}</text>
+          </view>
+        </view>
+        <!-- 操作按钮 -->
+        <view class="bill-actions">
+          <view class="action-btn edit" catchtap="goToEditBill" data-id="{{item._id}}">
+            编辑
+          </view>
+          <view class="action-btn detail" catchtap="goToBillDetail" data-id="{{item._id}}">
+            详情
+          </view>
+          <view class="action-btn delete" catchtap="deleteBill" data-id="{{item._id}}">
+            删除
+          </view>
+        </view>
+      </view>
+    </block>
+    <view class="empty-state" wx:else>
+      <text>暂无账单记录</text>
+    </view>
+  </view>
+
+  <!-- 记账按钮 -->
+  <view class="float-btn" bindtap="showAddBillModal">
+    <image src="/images/plus.png" mode="aspectFit"/>
+  </view>
+
+  <!-- 账本抽屉 -->
+  <view class="drawer {{showDrawer ? 'show' : ''}}" 
+        wx:if="{{showDrawer}}"
+        animation="{{drawerAnimation}}">
+    <view class="drawer-mask" bindtap="hideBookDrawer"></view>
+    <view class="drawer-content">
+      <view class="drawer-header">
+        <text>切换账本</text>
+        <view class="add-book" bindtap="showAddBookModal">
+          <text class="add-icon">+</text>
+          <text>新建账本</text>
+        </view>
+      </view>
+      <view class="book-list">
+        <view class="book-item {{currentBook._id === item._id ? 'active' : ''}}"
+              wx:for="{{books}}"
+              wx:key="_id"
+              bindtap="switchBook"
+              data-id="{{item._id}}">
+          <view class="book-info">
+            <text class="book-name">{{item.name}}</text>
+            <text class="member-count">{{item.members.length}}人</text>
+            <view class="default-tag" wx:if="{{item.isDefault}}">默认</view>
+          </view>
+          <view class="book-cover" style="background: {{item.cover}}"></view>
+          <view class="set-default" 
+                wx:if="{{!item.isDefault}}" 
+                catchtap="setDefaultBook" 
+                data-id="{{item._id}}">
+            设为默认
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 新建账本弹窗 -->
+  <view class="modal" wx:if="{{showAddBookModal}}">
+    <view class="modal-mask" bindtap="hideAddBookModal"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text>新建账本</text>
+      </view>
+      <view class="modal-body">
+        <input type="text" 
+               placeholder="请输入账本名称" 
+               value="{{newBookName}}"
+               bindinput="onInputBookName"/>
+      </view>
+      <view class="modal-footer">
+        <button class="cancel-btn" bindtap="hideAddBookModal">取消</button>
+        <button class="confirm-btn" bindtap="createBook">确定</button>
+      </view>
+    </view>
+  </view>
+</view> 

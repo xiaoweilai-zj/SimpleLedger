@@ -1,0 +1,47 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/addBill/addBill",
+    "pages/bookDetail/bookDetail",
+    "pages/statistics/statistics",
+    "pages/memberManage/memberManage",
+    "pages/billDetail/billDetail",
+    "pages/editBill/editBill",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "AA记账",
+    "navigationBarTextStyle": "black",
+    "pageTransition": {
+      "type": "slide"
+    }
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "记账",
+        "iconPath": "images/book.png",
+        "selectedIconPath": "images/book_selected.png"
+      },
+      {
+        "pagePath": "pages/statistics/statistics",
+        "text": "统计",
+        "iconPath": "images/statistics.png",
+        "selectedIconPath": "images/statistics_selected.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/profile.png",
+        "selectedIconPath": "images/profile_selected.png"
+      }
+    ],
+    "color": "#999999",
+    "selectedColor": "#1296db",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black"
+  }
+}

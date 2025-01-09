@@ -1,0 +1,23 @@
+<view class="member-section">
+  <view class="section-title">成员明细</view>
+  <view class="empty-state" wx:if="{{!memberStats || memberStats.length === 0}}">
+    <image src="/images/empty-chart.png" mode="aspectFit"/>
+    <text>邀请小伙伴一起记账吧，分摊更方便~</text>
+  </view>
+  <scroll-view 
+    scroll-y 
+    enhanced="{{true}}"
+    bounces="{{true}}"
+    show-scrollbar="{{true}}"
+    class="member-list">
+    <view class="member-item" wx:for="{{memberStats}}" wx:key="openId">
+      <view class="member-info">
+        <text class="name">{{item.name}}</text>
+      </view>
+      <view class="member-amount">
+        <text class="amount">¥{{item.totalAmount}}</text>
+        <text class="percent">{{item.percent}}%</text>
+      </view>
+    </view>
+  </scroll-view>
+</view> 

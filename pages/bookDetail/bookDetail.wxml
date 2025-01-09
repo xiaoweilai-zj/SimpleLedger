@@ -1,0 +1,85 @@
+<!--pages/bookDetail/bookDetail.wxml-->
+<view class="container">
+  <!-- 账本头部 -->
+  <view class="book-header" style="background-color: {{bookInfo.cover}}">
+    <view class="book-info">
+      <text class="book-name">{{bookInfo.name}}</text>
+      <text class="member-count">{{bookInfo.members.length}}个成员</text>
+    </view>
+  </view>
+
+  <!-- 统计区域 -->
+  <view class="statistics">
+    <view class="stat-item">
+      <text class="label">总支出</text>
+      <text class="amount">¥{{totalAmount || '0.00'}}</text>
+    </view>
+    <view class="stat-item">
+      <text class="label">人均支出</text>
+      <text class="amount">¥{{averageAmount || '0.00'}}</text>
+    </view>
+  </view>
+
+  <!-- 账单列表 -->
+  <view class="bill-list">
+    <block wx:if="{{bills.length}}">
+      <view class="bill-item" wx:for="{{bills}}" wx:key="_id" bindtap="goToBillDetail" data-id="{{item._id}}">
+        <view class="bill-left">
+          <view class="bill-info">
+            <text class="description">{{item.description || '未填写描述'}}</text>
+            <text class="date">{{item.date}}</text>
+          </view>
+        </view>
+        <view class="bill-right">
+          <text class="amount">¥{{item.amount}}</text>
+          <text class="split-info">{{item.participants.length}}人均摊</text>
+        </view>
+      </view>
+    </block>
+    <view class="empty-state" wx:else>
+      <icon type="info" size="80" color="#1296db"/>
+      <text>还没有账单，创建一个吧</text>
+    </view>
+  </view>
+
+  <!-- 底部功能区 -->
+  <view class="footer">
+    <view class="function-item" bindtap="goToMembers">
+      <icon type="friends" size="32" color="#1296db"/>
+      <text>成员</text>
+    </view>
+    <view class="add-bill" bindtap="showAddBillModal">
+      <icon type="add" size="32" color="#fff"/>
+    </view>
+    <view class="function-item" bindtap="goToStatistics">
+      <icon type="info" size="32" color="#1296db"/>
+      <text>统计</text>
+    </view>
+  </view>
+
+  <!-- 添加账单弹窗 -->
+  <view class="modal" wx:if="{{showModal}}">
+    <view class="modal-mask" bindtap="hideModal"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text>添加账单</text>
+      </view>
+      <view class="modal-body">
+        <input type="digit" 
+               class="amount-input"
+               placeholder="输入金额" 
+               value="{{newBill.amount}}"
+               bindinput="onAmountInput"/>
+        <input type="text" 
+               class="desc-input"
+               placeholder="添加描述" 
+               value="{{newBill.description}}"
+               bindinput="onDescInput"/>
+      </view>
+      <view class="modal-footer">
+        <button class="cancel-btn" bindtap="hideModal">取消</button>
+        <button class="confirm-btn" bindtap="addBill">确定</button>
+      </view>
+    </view>
+  </view>
+</view>

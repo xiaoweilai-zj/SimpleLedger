@@ -1,0 +1,37 @@
+<view class="container">
+  <!-- 成员列表 -->
+  <view class="member-list">
+    <view class="member-item" wx:for="{{members}}" wx:key="_id">
+      <view class="member-info">
+        <image class="avatar" src="{{item.avatar || '/images/default-avatar.png'}}" mode="aspectFill"/>
+        <text class="name">{{item.name}}</text>
+      </view>
+      <view class="member-actions">
+        <text class="amount">消费: ¥{{item.totalAmount || '0.00'}}</text>
+        <view class="delete-btn" bindtap="deleteMember" data-id="{{item._id}}">
+          <image src="/images/delete.png" mode="aspectFit"/>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加成员表单 -->
+  <view class="add-member">
+    <view class="input-area">
+      <input type="text" 
+             value="{{newMemberName}}" 
+             bindinput="onNameInput"
+             placeholder="输入成员名称"
+             focus="{{showAddForm}}"/>
+      <view class="confirm-btn {{newMemberName ? '' : 'disabled'}}" 
+            bindtap="addMember">
+        添加
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加成员按钮 -->
+  <view class="float-btn" bindtap="showAddMemberForm">
+    <image src="/images/plus.png" mode="aspectFit"/>
+  </view>
+</view> 

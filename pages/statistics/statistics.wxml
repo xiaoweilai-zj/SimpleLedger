@@ -1,0 +1,43 @@
+<view class="page-bg"></view>
+<view class="container">
+  <block wx:if="{{!isLoading}}">
+    <!-- 总支出统计 -->
+    <view class="total-section" wx:if="{{currentBook}}">
+      <view class="total-header">总支出</view>
+      <view class="total-amount">¥{{statistics.totalExpense || 0}}</view>
+    </view>
+
+    <!-- 选项卡导航 -->
+    <view class="tab-nav">
+      <view class="tab-item {{currentTab === 0 ? 'active' : ''}}" 
+            bindtap="switchTab" 
+            data-index="0">支出趋势</view>
+      <view class="tab-item {{currentTab === 1 ? 'active' : ''}}" 
+            bindtap="switchTab" 
+            data-index="1">支出分类</view>
+      <view class="tab-item {{currentTab === 2 ? 'active' : ''}}" 
+            bindtap="switchTab" 
+            data-index="2">成员明细</view>
+    </view>
+
+    <swiper class="tab-content" style="height: {{contentHeight}}px" current="{{currentTab}}" bindchange="swiperChange">
+      <swiper-item>
+        <trend dateStats="{{dateStats}}" lineEc="{{lineEc}}" />
+      </swiper-item>
+      
+      <swiper-item>
+        <category categoryStats="{{categoryStats}}" categoryList="{{categoryList}}" pieEc="{{pieEc}}" categoryConfig="{{categoryConfig}}" />
+      </swiper-item>
+
+      <swiper-item>
+        <member memberStats="{{memberStats}}" />
+      </swiper-item>
+    </swiper>
+  </block>
+
+  <!-- 加载中提示 -->
+  <view class="loading" wx:else>
+    <view class="loading-icon"></view>
+    <text>加载中...</text>
+  </view>
+</view> 

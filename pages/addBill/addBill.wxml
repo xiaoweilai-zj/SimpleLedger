@@ -1,0 +1,89 @@
+<view class="container">
+  <!-- 金额输入区域 -->
+  <view class="amount-input">
+    <text class="currency">¥</text>
+    <input type="digit" 
+           value="{{amount}}" 
+           bindinput="onAmountInput"
+           placeholder="0.00"
+           focus="true"/>
+  </view>
+
+  <!-- 分类选择区域 -->
+  <view class="category-section">
+    <view class="section-title">选择分类</view>
+    <view class="category-list">
+      <view class="category-item {{selectedCategory === item ? 'selected' : ''}}" 
+            wx:for="{{categories}}" 
+            wx:key="*this"
+            bindtap="selectCategory"
+            data-category="{{item}}">
+        <image src="/images/categories/{{item}}.png" mode="aspectFit"/>
+        <text>{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 其他信息输入区域 -->
+  <view class="other-section">
+    <view class="input-item">
+      <text class="label">日期</text>
+      <picker mode="date" 
+              value="{{date}}" 
+              bindchange="onDateChange">
+        <view class="picker">{{date}}</view>
+      </picker>
+    </view>
+    <view class="input-item">
+      <text class="label">备注</text>
+      <input type="text" 
+             value="{{description}}"
+             bindinput="onDescriptionInput"
+             placeholder="添加备注"/>
+    </view>
+  </view>
+
+  <!-- 参与成员 -->
+  <view class="form-item">
+    <text class="label">参与成员</text>
+    <view class="member-list">
+      <view class="member-item {{item.selected ? 'selected' : ''}}" 
+            wx:for="{{participants}}" 
+            wx:key="name"
+            bindtap="toggleMember"
+            data-index="{{index}}">
+        <text>{{item.name}}</text>
+      </view>
+      <view class="member-item add-member" bindtap="showAddMemberModal">
+        <text class="add-icon">+</text>
+        <text>添加</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加成员弹窗 -->
+  <view class="modal" wx:if="{{showAddMemberModal}}">
+    <view class="modal-mask" bindtap="hideAddMemberModal"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text>添加成员</text>
+      </view>
+      <view class="modal-body">
+        <input type="text" 
+               placeholder="输入成员名称" 
+               value="{{newMemberName}}"
+               bindinput="onInputMemberName"/>
+      </view>
+      <view class="modal-footer">
+        <button class="cancel-btn" bindtap="hideAddMemberModal">取消</button>
+        <button class="confirm-btn" bindtap="addMember">确定</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-btn {{canSubmit ? '' : 'disabled'}}" 
+        bindtap="submitBill">
+    完成
+  </view>
+</view> 

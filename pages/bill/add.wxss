@@ -1,0 +1,4 @@
+.submit-btn.disabled {
+  opacity: 0.6;
+  background: #999 !important;
+} 

@@ -1,0 +1,5 @@
+<button class="submit-btn {{isSubmitting ? 'disabled' : ''}}"
+        disabled="{{isSubmitting}}"
+        bindtap="submitBill">
+  {{isSubmitting ? '提交中...' : '确认'}}
+</button> 

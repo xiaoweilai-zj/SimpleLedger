@@ -1,0 +1,38 @@
+<view class="container">
+  <view class="form-group">
+    <view class="form-item">
+      <text class="label">账本名称</text>
+      <input class="input" 
+        value="{{name}}" 
+        placeholder="请输入账本名称" 
+        bindinput="onNameInput"/>
+    </view>
+
+    <view class="form-item">
+      <text class="label">共享设置</text>
+      <switch checked="{{isShared}}" bindchange="onShareChange"/>
+    </view>
+  </view>
+
+  <view class="members-section" wx:if="{{isShared}}">
+    <view class="section-title">共享成员</view>
+    <view class="member-list">
+      <view class="member-item" wx:for="{{members}}" wx:key="openId">
+        <image class="avatar" src="{{item.avatarUrl}}" mode="aspectFill"/>
+        <text class="nickname">{{item.nickName}}</text>
+        <view class="remove-btn" bindtap="removeMember" data-id="{{item.openId}}">
+          <text class="icon">×</text>
+        </view>
+      </view>
+      <view class="add-member" bindtap="addMember">
+        <text class="icon">+</text>
+        <text>添加成员</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="btn-group">
+    <button class="btn primary" bindtap="saveBook">保存</button>
+    <button class="btn danger" bindtap="deleteBook" wx:if="{{id}}">删除账本</button>
+  </view>
+</view> 

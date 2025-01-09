@@ -1,0 +1,62 @@
+<view class="container">
+  <!-- 未登录状态 -->
+  <view class="login-section" wx:if="{{!userInfo}}">
+    <icon type="userinfo" size="80" color="#1296db"/>
+    <button class="login-btn" bindtap="showLoginModal">
+      微信登录
+    </button>
+  </view>
+
+  <!-- 已登录状态 -->
+  <view class="user-section" wx:else>
+    <view class="user-info">
+      <image class="avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill"/>
+      <text class="nickname">{{userInfo.nickName}}</text>
+    </view>
+  </view>
+
+  <!-- 功能列表 -->
+  <view class="function-list">
+    <view class="menu-group">
+      <view class="menu-item" bindtap="goToAbout">
+        <view class="menu-left">
+          <icon type="info" size="32" color="#1296db"/>
+          <text>关于</text>
+        </view>
+        <icon type="arrow-right" size="16" color="#999"/>
+      </view>
+    </view>
+    <view class="menu-group" wx:if="{{userInfo}}">
+      <button class="logout-btn" bindtap="showLogoutConfirm">退出登录</button>
+    </view>
+  </view>
+
+  <!-- 登录弹窗 -->
+  <view class="modal" wx:if="{{showLoginModal}}">
+    <view class="modal-mask" bindtap="hideLoginModal"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text>登录</text>
+      </view>
+      <view class="modal-body">
+        <view class="avatar-section">
+          <button class="avatar-wrapper" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+            <image class="avatar-preview" src="{{tempAvatar || '/images/default-avatar.png'}}" mode="aspectFill"/>
+            <text class="avatar-tip">点击获取头像</text>
+          </button>
+        </view>
+        <view class="nickname-section">
+          <input type="nickname" 
+                 class="nickname-input" 
+                 placeholder="点击获取微信昵称" 
+                 value="{{tempNickName}}"
+                 bindinput="onInputNickname"/>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button class="cancel-btn" bindtap="hideLoginModal">取消</button>
+        <button class="confirm-btn" bindtap="handleLogin">确认</button>
+      </view>
+    </view>
+  </view>
+</view> 

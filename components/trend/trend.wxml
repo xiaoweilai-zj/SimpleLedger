@@ -1,0 +1,5 @@
+<view class="trend-section">
+  <view class="chart-container">
+    <ec-canvas id="trendChart" canvas-id="trendChart" ec="{{ lineEc }}"></ec-canvas>
+  </view>
+</view> 

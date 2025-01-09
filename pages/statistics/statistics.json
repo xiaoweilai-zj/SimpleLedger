@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "trend": "/components/trend/trend",
+    "category": "/components/category/category",
+    "member": "/components/member/member",
+    "ec-canvas": "/ec-canvas/ec-canvas"
+  },
+  "backgroundColor": "#ffffff",
+  "navigationBarBackgroundColor": "#ffffff"
+}

@@ -1,0 +1,13 @@
+<view class="page-bg"></view>
+<view class="container">
+  <!-- 账本切换区域 -->
+  <view class="book-selector">
+    <view class="book-info {{isBookListVisible ? 'active' : ''}}" bindtap="showBookList">
+      <text class="book-name">{{currentBook.name}}</text>
+      <view class="arrow-icon"></view>
+    </view>
+  </view>
+
+  <!-- 其他内容 -->
+  <!-- ... -->
+</view> 

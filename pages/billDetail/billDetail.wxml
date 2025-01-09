@@ -1,0 +1,40 @@
+<view class="container">
+  <view class="bill-detail" wx:if="{{bill}}">
+    <view class="amount-section">
+      <text class="amount">¥{{bill.amount}}</text>
+    </view>
+
+    <view class="info-section">
+      <view class="info-item">
+        <text class="label">类别</text>
+        <text class="value">{{bill.category}}</text>
+      </view>
+      <view class="info-item">
+        <text class="label">日期</text>
+        <text class="value">{{bill.date}}</text>
+      </view>
+      <view class="info-item">
+        <text class="label">备注</text>
+        <text class="value">{{bill.description || '无'}}</text>
+      </view>
+    </view>
+
+    <view class="split-section">
+      <view class="split-header">
+        <text>分摊明细</text>
+        <text class="split-amount">每人 ¥{{bill.amount / participants.length}}</text>
+      </view>
+      <view class="member-list">
+        <view class="member-item" wx:for="{{participants}}" wx:key="name">
+          <image class="avatar" src="/images/default-avatar.png" mode="aspectFill"/>
+          <text class="nickname">{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:else>
+    <icon type="warn" size="64" color="#999"/>
+    <text>账单不存在或已被删除</text>
+  </view>
+</view> 

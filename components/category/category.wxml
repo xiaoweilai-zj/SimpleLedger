@@ -1,0 +1,26 @@
+<view class="category-section">
+  <view class="chart-container">
+    <ec-canvas id="pieChart" canvas-id="pieChart" ec="{{ pieEc }}"></ec-canvas>
+  </view>
+
+  <scroll-view 
+    scroll-y 
+    enhanced="{{true}}"
+    bounces="{{true}}"
+    show-scrollbar="{{true}}"
+    class="category-list">
+    <view class="category-item" wx:for="{{categoryList}}" wx:key="name">
+      <view class="category-header">
+        <image class="category-icon" src="/images/categories/{{item.name}}.png" mode="aspectFit"></image>
+        <view class="category-info">
+          <text class="category-name">{{item.name}}</text>
+          <text class="category-amount">¥{{item.amount}}</text>
+        </view>
+        <text class="category-percent">{{item.percent}}%</text>
+      </view>
+      <view class="progress-bar">
+        <view class="progress" style="width: {{item.percent}}%; background: {{categoryConfig[item.name].color}}"></view>
+      </view>
+    </view>
+  </scroll-view>
+</view> 
